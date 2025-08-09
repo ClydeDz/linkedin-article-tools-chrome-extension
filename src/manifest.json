@@ -1,0 +1,26 @@
+{
+  "manifest_version": 3,
+  "name": "LinkedIn Article Tools",
+  "description": "LinkedIn Article Tools",
+  "version": "0.0.1",
+  "author": "Clyde D'Souza",
+  "homepage_url": "https://github.com/ClydeDz/linkedin-article-tools-chrome-extension",
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "*://*.linkedin.com/*"
+      ],
+      "js": [
+        "index.js"
+      ],
+      "css": [
+        "index.css"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,89 @@
+name: Build and deploy chrome extension
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - "docs/**"
+      - "*.md"
+  pull_request:
+    branches:
+      - main
+    paths-ignore:
+      - "docs/**"
+      - "*.md"
+
+jobs:
+  build:
+    name: Build chrome extension
+    runs-on: ubuntu-latest
+    permissions:
+      checks: write
+      pull-requests: write
+      issues: write
+      statuses: write
+      contents: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+
+      - name: Install NPM packages
+        run: npm ci
+
+      - name: Build project
+        run: npm run build:prod
+
+      # - name: Run tests and produce reports
+      #   run: npm run test:ci
+
+      # - name: Publish test results
+      #   uses: EnricoMi/publish-unit-test-result-action@v2
+      #   if: always()
+      #   with:
+      #     files: |
+      #       ./src/tests/*.xml
+
+      # - name: Publish code coverage results
+      #   uses: romeovs/lcov-reporter-action@v0.4.0
+      #   with:
+      #     github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      # - name: Upload production-ready build files
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: production-files
+      #     path: ./dist
+
+  # deploy:
+  #   name: Deploy chrome extension
+  #   needs: build
+  #   runs-on: ubuntu-latest
+  #   if: github.ref == 'refs/heads/main'
+
+  #   steps:
+  #     - name: Download artifact
+  #       uses: actions/download-artifact@v4
+  #       with:
+  #         name: production-files
+  #         path: ./dist
+
+  #     - name: Zip contents
+  #       uses: montudor/action-zip@v1
+  #       with:
+  #         args: zip -qq -r extension.zip dist
+
+  #     - name: Publish to Chrome store
+  #       uses: Klemensas/chrome-extension-upload-action@v1.3
+  #       with:
+  #         refresh-token: ${{ secrets.CHROME_REFRESH_TOKEN }}
+  #         client-id: ${{ secrets.CHROME_CLIENT_ID }}
+  #         client-secret: ${{ secrets.CHROME_CLIENT_SECRET }}
+  #         app-id: ${{ secrets.CHROME_APP_ID }}
+  #         file-name: "./extension.zip"

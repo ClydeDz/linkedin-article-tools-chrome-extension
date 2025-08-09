@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="jest tests" tests="18" failures="0" errors="0" time="1.908">
+  <testsuite name="process.test.js" errors="0" failures="0" skipped="0" timestamp="2025-03-29T03:18:53" time="1.522" tests="7">
+    <testcase classname="process.test.js getGoodreadsTitle should return title" name="process.test.js getGoodreadsTitle should return title" time="0.01">
+    </testcase>
+    <testcase classname="process.test.js getGoodreadsTitle should return undefined when no title found" name="process.test.js getGoodreadsTitle should return undefined when no title found" time="0">
+    </testcase>
+    <testcase classname="process.test.js getGoodreadsTitle should return undefined when no innerText property found" name="process.test.js getGoodreadsTitle should return undefined when no innerText property found" time="0">
+    </testcase>
+    <testcase classname="process.test.js getGoodreadsAuthors should return author name" name="process.test.js getGoodreadsAuthors should return author name" time="0.001">
+    </testcase>
+    <testcase classname="process.test.js getGoodreadsAuthors should return undefined when no author name found" name="process.test.js getGoodreadsAuthors should return undefined when no author name found" time="0.001">
+    </testcase>
+    <testcase classname="process.test.js getGoodreadsAuthors should return undefined author when no innerText property found" name="process.test.js getGoodreadsAuthors should return undefined author when no innerText property found" time="0">
+    </testcase>
+    <testcase classname="process.test.js addRedirectButtonToDom should addRedirectButtonToDom" name="process.test.js addRedirectButtonToDom should addRedirectButtonToDom" time="0.001">
+    </testcase>
+  </testsuite>
+  <testsuite name="document.test.js" errors="0" failures="0" skipped="0" timestamp="2025-03-29T03:18:53" time="1.525" tests="8">
+    <testcase classname="document.test.js getElements getElements method called" name="document.test.js getElements getElements method called" time="0.01">
+    </testcase>
+    <testcase classname="document.test.js getElements getElements method returns elements" name="document.test.js getElements getElements method returns elements" time="0.001">
+    </testcase>
+    <testcase classname="document.test.js getElements getElements method returns undefined if no elements found" name="document.test.js getElements getElements method returns undefined if no elements found" time="0.001">
+    </testcase>
+    <testcase classname="document.test.js getElements getElements method returns undefined if nothing is found" name="document.test.js getElements getElements method returns undefined if nothing is found" time="0.004">
+    </testcase>
+    <testcase classname="document.test.js createButton createButton method called" name="document.test.js createButton createButton method called" time="0.001">
+    </testcase>
+    <testcase classname="document.test.js createButton returns when no links is supplied undefined" name="document.test.js createButton returns when no links is supplied undefined" time="0.001">
+    </testcase>
+    <testcase classname="document.test.js createButton returns when no links is supplied " name="document.test.js createButton returns when no links is supplied " time="0.001">
+    </testcase>
+    <testcase classname="document.test.js prepend prepend method called" name="document.test.js prepend prepend method called" time="0">
+    </testcase>
+  </testsuite>
+  <testsuite name="start.test.js" errors="0" failures="0" skipped="0" timestamp="2025-03-29T03:18:53" time="1.554" tests="3">
+    <testcase classname="start.test.js adds redirect button with book title and author information" name="start.test.js adds redirect button with book title and author information" time="0.016">
+    </testcase>
+    <testcase classname="start.test.js adds redirect button when book title is defined but author is undefined" name="start.test.js adds redirect button when book title is defined but author is undefined" time="0.001">
+    </testcase>
+    <testcase classname="start.test.js does not add redirect button when both title and author is undefined" name="start.test.js does not add redirect button when both title and author is undefined" time="0.001">
+    </testcase>
+  </testsuite>
+</testsuites>
