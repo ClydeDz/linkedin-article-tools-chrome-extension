@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "LinkedIn Article Tools",
   "description": "Adds four always-visible buttons to LinkedIn for instant access to New Article, Drafts, Scheduled, and Published pages.",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "author": "Clyde D'Souza",
   "homepage_url": "https://github.com/ClydeDz/linkedin-article-tools-chrome-extension",
   "icons": {
