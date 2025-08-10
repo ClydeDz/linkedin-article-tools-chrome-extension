@@ -13,9 +13,9 @@ export function getLinkedInContainer() {
 }
 
 export function createExtensionContainer() {
-  var div = doc.createElement("div");
+  const div = doc.createElement("div");
   div.className = `${baseClassname}-container`;
-  var h2 = doc.createElement("h2");
+  const h2 = doc.createElement("h2");
   h2.innerText = extensionName;
   div.append(h2);
   return div;
@@ -23,6 +23,7 @@ export function createExtensionContainer() {
 
 export function addButtonsToExtensionContainer(extensionContainer, buttons) {
   buttons.forEach((button) => {
+    if (!button) return;
     extensionContainer.append(button);
   });
 }
@@ -43,6 +44,7 @@ export function createButton(buttonText, redirectLink, isPrimary = false) {
   const buttonClassname = `${baseClassname}-button`;
 
   const button = doc.createElement("button");
+
   button.innerText = buttonText;
   button.className = `${buttonClassname} ${buttonVariantClassname}`;
   button.onclick = function () {

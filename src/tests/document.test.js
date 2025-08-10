@@ -1,53 +1,115 @@
 import * as documentModule from "../scripts/document";
-import {
-  document,
-  querySelectorAll,
-  createElement,
-  appendChild,
-  prepend,
-} from "./mocks/documentMock";
+import { document, querySelector, createElement } from "./mocks/documentMock";
 
 describe("document.test.js", () => {
-  describe("getElements", () => {
+  describe("getLinkedInContainer", () => {
     beforeEach(() => {
       documentModule.initializeDocument(document);
       jest.resetAllMocks();
     });
 
-    test("getElements method called", () => {
-      documentModule.getElements("#test");
-      expect(querySelectorAll).toHaveBeenCalledWith("#test");
+    test("should query the expected selector", () => {
+      documentModule.getLinkedInContainer();
+      expect(querySelector).toHaveBeenCalledWith(".authentication-outlet");
+    });
+  });
+
+  describe("createExtensionContainer", () => {
+    beforeEach(() => {
+      documentModule.initializeDocument(document);
+      jest.resetAllMocks();
     });
 
-    test("getElements method returns elements", () => {
-      var mockElements = [
-        {
-          id: "test",
-        },
-        {
-          id: "test2",
-        },
-      ];
-      querySelectorAll.mockReturnValue(mockElements);
-      var elements = documentModule.getElements("#test");
-      expect(querySelectorAll).toHaveBeenCalledWith("#test");
-      expect(elements).toEqual(mockElements);
+    test("should create extension container with heading element", () => {
+      const appendSpy = jest.fn();
+      const mockDivElement = {
+        className: "",
+        append: appendSpy,
+      };
+      const mockH2Element = {
+        innerText: "",
+      };
+      createElement.mockReturnValueOnce(mockDivElement);
+      createElement.mockReturnValueOnce(mockH2Element);
+
+      const result = documentModule.createExtensionContainer();
+
+      expect(createElement).toHaveBeenCalledTimes(2);
+      expect(createElement).toHaveBeenCalledWith("div");
+      expect(createElement).toHaveBeenCalledWith("h2");
+
+      expect(appendSpy).toHaveBeenCalledTimes(1);
+      expect(appendSpy).toHaveBeenCalledWith({
+        innerText: "LinkedIn Article Tools",
+      });
+
+      expect(result).toMatchObject({
+        className: "linkedin-article-tools-ext-container",
+      });
+    });
+  });
+
+  describe("addButtonsToExtensionContainer", () => {
+    beforeEach(() => {
+      documentModule.initializeDocument(document);
+      jest.resetAllMocks();
     });
 
-    test("getElements method returns undefined if no elements found", () => {
-      var mockElements = [];
-      querySelectorAll.mockReturnValue(mockElements);
-      var elements = documentModule.getElements("#test");
-      expect(querySelectorAll).toHaveBeenCalledWith("#test");
-      expect(elements).toBeUndefined();
+    test("should add buttons to provided extension container", () => {
+      const appendSpy = jest.fn();
+      const mockExtensionContainer = {
+        append: appendSpy,
+      };
+      const mockButtons = ["a", "b"];
+
+      documentModule.addButtonsToExtensionContainer(
+        mockExtensionContainer,
+        mockButtons
+      );
+
+      expect(appendSpy).toHaveBeenCalledTimes(2);
+      expect(appendSpy).toHaveBeenCalledWith("a");
+      expect(appendSpy).toHaveBeenCalledWith("b");
     });
 
-    test("getElements method returns undefined if nothing is found", () => {
-      var mockElements = undefined;
-      querySelectorAll.mockReturnValue(mockElements);
-      var elements = documentModule.getElements("#test");
-      expect(querySelectorAll).toHaveBeenCalledWith("#test");
-      expect(elements).toBeUndefined();
+    test("should not add undefined button", () => {
+      const appendSpy = jest.fn();
+      const mockExtensionContainer = {
+        append: appendSpy,
+      };
+      const mockButtons = ["a", undefined, "z"];
+
+      documentModule.addButtonsToExtensionContainer(
+        mockExtensionContainer,
+        mockButtons
+      );
+
+      expect(appendSpy).toHaveBeenCalledTimes(2);
+      expect(appendSpy).toHaveBeenCalledWith("a");
+      expect(appendSpy).toHaveBeenCalledWith("z");
+    });
+  });
+
+  describe("addExtensionContainerToLinkedInContainer", () => {
+    beforeEach(() => {
+      documentModule.initializeDocument(document);
+      jest.resetAllMocks();
+    });
+
+    test("should add extension container after linkedin container", () => {
+      const afterSpy = jest.fn();
+      const mockLinkedInContainer = {
+        after: afterSpy,
+      };
+      const mockExtensionContainer = "ext";
+
+      documentModule.addExtensionContainerToLinkedInContainer(
+        mockLinkedInContainer,
+        mockExtensionContainer
+      );
+
+      expect(afterSpy).toHaveBeenCalledTimes(1);
+      expect(afterSpy).toHaveBeenCalledWith("ext");
     });
   });
 
@@ -57,47 +119,55 @@ describe("document.test.js", () => {
       jest.resetAllMocks();
     });
 
-    test("createButton method called", () => {
-      var mockDivElement = {
-        className: "",
-        appendChild,
-      };
-      var mockButtonElement = {
-        onclick: jest.fn(),
-        innerText: "",
-        className: "",
-      };
-      createElement.mockReturnValueOnce(mockDivElement);
-      createElement.mockReturnValueOnce(mockButtonElement);
+    test.each([
+      {
+        isPrimary: true,
+        expectedCssClassname:
+          "linkedin-article-tools-ext-button linkedin-article-tools-ext-button-primary",
+      },
+      {
+        isPrimary: false,
+        expectedCssClassname:
+          "linkedin-article-tools-ext-button linkedin-article-tools-ext-button-secondary",
+      },
+    ])(
+      `should create button with class $expectedCssClassname when isPrimary is $isPrimary`,
+      ({ isPrimary, expectedCssClassname }) => {
+        createElement.mockReturnValueOnce({
+          innerText: "",
+          className: "",
+          onclick: undefined,
+        });
 
-      documentModule.createButton("google.com");
-      expect(createElement).toHaveBeenCalled();
-      expect(appendChild).toHaveBeenCalled();
-    });
+        const result = documentModule.createButton(
+          "test",
+          "http://test.com",
+          isPrimary
+        );
 
-    test.each([[undefined], [""]])(
-      "returns when no links is supplied %s",
-      (link) => {
-        documentModule.createButton(link);
-        expect(createElement).not.toHaveBeenCalled();
-        expect(appendChild).not.toHaveBeenCalled();
+        expect(createElement).toHaveBeenCalledTimes(1);
+        expect(createElement).toHaveBeenCalledWith("button");
+
+        expect(result).toEqual(
+          expect.objectContaining({
+            className: expectedCssClassname,
+            innerText: "test",
+          })
+        );
       }
     );
-  });
 
-  describe("prepend", () => {
-    beforeEach(() => {
-      documentModule.initializeDocument(document);
-      jest.resetAllMocks();
-    });
+    test("should return undefined button when no redirect link is supplied", () => {
+      createElement.mockReturnValueOnce({
+        innerText: "",
+        className: "",
+        onclick: undefined,
+      });
 
-    test("prepend method called", () => {
-      var abc = {
-        prepend,
-      };
-      var xyz;
-      documentModule.prepend(abc, xyz);
-      expect(prepend).toHaveBeenCalled();
+      const result = documentModule.createButton("test", null, true);
+
+      expect(createElement).toHaveBeenCalledTimes(0);
+      expect(result).toBeUndefined();
     });
   });
 });

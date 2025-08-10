@@ -1,20 +1,20 @@
-import * as processModule from "../scripts/process";
+import * as documentModule from "../scripts/document";
 import * as startModule from "../scripts/start";
 
-var bookTitle = "Mama, Tell Me a Story";
-var bookAuthors = "Clyde D'Souza";
-var goodreadsDesktopButtonSelector = ".BookPage__leftColumn .BookActions";
-var goodreadsMobileButtonSelector =
-  ".BookPageMetadataSection__mobileBookActions .BookActions";
-
-var getGoodreadsTitleSpy = jest
-  .spyOn(processModule, "getGoodreadsTitle")
+const getLinkedInContainerSpy = jest
+  .spyOn(documentModule, "getLinkedInContainer")
   .mockImplementation(jest.fn());
-var getGoodreadsAuthorsSpy = jest
-  .spyOn(processModule, "getGoodreadsAuthors")
+const createExtensionContainerSpy = jest
+  .spyOn(documentModule, "createExtensionContainer")
   .mockImplementation(jest.fn());
-var addRedirectButtonToDomSpy = jest
-  .spyOn(processModule, "addRedirectButtonToDom")
+const createButtonSpy = jest
+  .spyOn(documentModule, "createButton")
+  .mockImplementation(jest.fn());
+const addButtonsToExtensionContainerSpy = jest
+  .spyOn(documentModule, "addButtonsToExtensionContainer")
+  .mockImplementation(jest.fn());
+const addExtensionContainerToLinkedInContainerSpy = jest
+  .spyOn(documentModule, "addExtensionContainerToLinkedInContainer")
   .mockImplementation(jest.fn());
 
 describe("start.test.js", () => {
@@ -22,57 +22,56 @@ describe("start.test.js", () => {
     jest.resetAllMocks();
   });
 
-  test("adds redirect button with book title and author information", () => {
-    getGoodreadsTitleSpy.mockReturnValueOnce(bookTitle);
-    getGoodreadsAuthorsSpy.mockReturnValue(bookAuthors);
-    var bookSearchText = encodeURIComponent(`${bookTitle} by ${bookAuthors}`);
+  test("should add buttons to the DOM", () => {
+    getLinkedInContainerSpy.mockReturnValue({});
+    createExtensionContainerSpy.mockReturnValue({});
+    createButtonSpy.mockReturnValueOnce("a");
+    createButtonSpy.mockReturnValueOnce("b");
+    createButtonSpy.mockReturnValueOnce("c");
+    createButtonSpy.mockReturnValueOnce("d");
 
     startModule.start();
 
-    expect(getGoodreadsTitleSpy).toHaveBeenCalledTimes(1);
-    expect(getGoodreadsAuthorsSpy).toHaveBeenCalledTimes(1);
+    expect(getLinkedInContainerSpy).toHaveBeenCalledTimes(1);
+    expect(createExtensionContainerSpy).toHaveBeenCalledTimes(1);
 
-    expect(addRedirectButtonToDomSpy).toHaveBeenCalledTimes(2);
-    expect(addRedirectButtonToDomSpy).toHaveBeenCalledWith(
-      goodreadsDesktopButtonSelector,
-      `https://discover.aucklandlibraries.govt.nz/search?query=${bookSearchText}&searchType=everything&pageSize=10`
+    expect(createButtonSpy).toHaveBeenCalledTimes(4);
+    expect(createButtonSpy).toHaveBeenCalledWith(
+      "Write a new article",
+      "https://www.linkedin.com/article/new/",
+      true
     );
-    expect(addRedirectButtonToDomSpy).toHaveBeenCalledWith(
-      goodreadsMobileButtonSelector,
-      `https://discover.aucklandlibraries.govt.nz/search?query=${bookSearchText}&searchType=everything&pageSize=10`
+    expect(createButtonSpy).toHaveBeenCalledWith(
+      "Drafts",
+      "https://www.linkedin.com/article/manage/drafts/"
     );
-  });
-
-  test("adds redirect button when book title is defined but author is undefined", () => {
-    getGoodreadsTitleSpy.mockReturnValueOnce(bookTitle);
-    getGoodreadsAuthorsSpy.mockReturnValue(undefined);
-    var bookSearchText = encodeURIComponent(`${bookTitle} by ${undefined}`);
-
-    startModule.start();
-
-    expect(getGoodreadsTitleSpy).toHaveBeenCalledTimes(1);
-    expect(getGoodreadsAuthorsSpy).toHaveBeenCalledTimes(1);
-
-    expect(addRedirectButtonToDomSpy).toHaveBeenCalledTimes(2);
-    expect(addRedirectButtonToDomSpy).toHaveBeenCalledWith(
-      goodreadsDesktopButtonSelector,
-      `https://discover.aucklandlibraries.govt.nz/search?query=${bookSearchText}&searchType=everything&pageSize=10`
+    expect(createButtonSpy).toHaveBeenCalledWith(
+      "Scheduled",
+      "https://www.linkedin.com/article/manage/scheduled/"
     );
-    expect(addRedirectButtonToDomSpy).toHaveBeenCalledWith(
-      goodreadsMobileButtonSelector,
-      `https://discover.aucklandlibraries.govt.nz/search?query=${bookSearchText}&searchType=everything&pageSize=10`
+    expect(createButtonSpy).toHaveBeenCalledWith(
+      "Published",
+      "https://www.linkedin.com/article/manage/published/"
     );
-  });
 
-  test("does not add redirect button when both title and author is undefined", () => {
-    getGoodreadsTitleSpy.mockReturnValueOnce(undefined);
-    getGoodreadsAuthorsSpy.mockReturnValue(undefined);
+    expect(addButtonsToExtensionContainerSpy).toHaveBeenCalledTimes(1);
+    expect(addButtonsToExtensionContainerSpy).toHaveBeenCalledWith(
+      expect.any(Object),
+      expect.any(Array)
+    );
+    expect(addButtonsToExtensionContainerSpy).toHaveBeenCalledWith({}, [
+      "a",
+      "b",
+      "c",
+      "d",
+    ]);
 
-    startModule.start();
-
-    expect(getGoodreadsTitleSpy).toHaveBeenCalledTimes(1);
-    expect(getGoodreadsAuthorsSpy).toHaveBeenCalledTimes(1);
-
-    expect(addRedirectButtonToDomSpy).toHaveBeenCalledTimes(0);
+    expect(addExtensionContainerToLinkedInContainerSpy).toHaveBeenCalledTimes(
+      1
+    );
+    expect(addExtensionContainerToLinkedInContainerSpy).toHaveBeenCalledWith(
+      expect.any(Object),
+      expect.any(Object)
+    );
   });
 });
