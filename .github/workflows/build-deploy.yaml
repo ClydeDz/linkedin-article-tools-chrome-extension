@@ -32,7 +32,8 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20.x
+          node-version: 20
+          cache: "npm"
 
       - name: Install NPM packages
         run: npm ci
@@ -40,26 +41,26 @@ jobs:
       - name: Build project
         run: npm run build:prod
 
-      # - name: Run tests and produce reports
-      #   run: npm run test:ci
+      - name: Run tests and produce reports
+        run: npm run test:ci
 
-      # - name: Publish test results
-      #   uses: EnricoMi/publish-unit-test-result-action@v2
-      #   if: always()
-      #   with:
-      #     files: |
-      #       ./src/tests/*.xml
+      - name: Publish test results
+        uses: EnricoMi/publish-unit-test-result-action@v2
+        if: always()
+        with:
+          files: |
+            ./src/tests/*.xml
 
-      # - name: Publish code coverage results
-      #   uses: romeovs/lcov-reporter-action@v0.4.0
-      #   with:
-      #     github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Publish code coverage results
+        uses: romeovs/lcov-reporter-action@v0.4.0
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
 
-      # - name: Upload production-ready build files
-      #   uses: actions/upload-artifact@v4
-      #   with:
-      #     name: production-files
-      #     path: ./dist
+      - name: Upload extension build files
+        uses: actions/upload-artifact@v4
+        with:
+          name: production-files
+          path: ./dist
 
   # deploy:
   #   name: Deploy chrome extension
