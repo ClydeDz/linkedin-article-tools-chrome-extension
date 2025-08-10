@@ -1,40 +1,53 @@
 let doc;
 
+const extensionName = "LinkedIn Article Tools";
+const baseClassname = "linkedin-article-tools-ext";
+
 export function initializeDocument(injectedDocument) {
   doc = injectedDocument;
 }
 
-export function getElements(selector) {
-  var domElements = doc.querySelectorAll(selector);
-  return !domElements || domElements.length == 0 ? undefined : domElements;
+export function getLinkedInContainer() {
+  const linkedInBodyElementClassname = ".authentication-outlet";
+  return doc.querySelector(linkedInBodyElementClassname);
 }
 
-export function createContainer() {
+export function createExtensionContainer() {
   var div = doc.createElement("div");
-  div.className = "goodreads-akllibrary-ext-container";
+  div.className = `${baseClassname}-container`;
   var h2 = doc.createElement("h2");
-  h2.innerText = "LinkedIn Article Tools";
+  h2.innerText = extensionName;
   div.append(h2);
   return div;
 }
 
- 
+export function addButtonsToExtensionContainer(extensionContainer, buttons) {
+  buttons.forEach((button) => {
+    extensionContainer.append(button);
+  });
+}
 
-export function createButton(buttonText, redirectLink, isSecondary = false) {
+export function addExtensionContainerToLinkedInContainer(
+  linkedInContainer,
+  extensionContainer
+) {
+  linkedInContainer.after(extensionContainer);
+}
+
+export function createButton(buttonText, redirectLink, isPrimary = false) {
   if (!redirectLink) return;
 
-  var button = doc.createElement("button");
+  const buttonVariantClassname = isPrimary
+    ? `${baseClassname}-button-primary`
+    : `${baseClassname}-button-secondary`;
+  const buttonClassname = `${baseClassname}-button`;
+
+  const button = doc.createElement("button");
+  button.innerText = buttonText;
+  button.className = `${buttonClassname} ${buttonVariantClassname}`;
   button.onclick = function () {
     window.open(redirectLink, "_blank");
   };
-  button.innerText = buttonText;
-  button.className =
-    "goodreads-akllibrary-ext-button goodreads-akllibrary-ext-mobile" +
-    (isSecondary && " secondary-ext-button");
 
   return button;
-}
-
-export function prepend(parent, child) {
-  parent.prepend(child);
 }

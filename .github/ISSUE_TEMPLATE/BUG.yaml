@@ -32,13 +32,6 @@ body:
     id: extension
     attributes:
       label: Extension version
-      placeholder: ex. Goodreads to Auckland Library Navigator 1.0.0
-    validations:
-      required: true
-  - type: input
-    id: goodreadspage
-    attributes:
-      label: Goodreads website URL
-      placeholder: ex. https://www.goodreads.com/book/show/42046112-recursion
+      placeholder: ex. LinkedIn Article Tools 1.0.0
     validations:
       required: true

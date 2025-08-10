@@ -1,16 +1,21 @@
-# Goodreads to Auckland Library Navigator Chrome Extension
+# LinkedIn Article Tools
 
-Adds a 1-click 'Search in Auckland Library' button on the Goodreads book page to easily find your Goodreads book in the Auckland Library website.
+Adds four always-visible buttons to LinkedIn for instant access to New Article, Drafts, Scheduled, and Published pages.
 
 ## Why?
 
-When I've come across a good book recommendation on Goodreads, I always end up manually having to search it on the Auckland Library website. That's a lot of clicks and a lot of typing.
+LinkedIn Article Tools adds a convenient sticky footer to your LinkedIn pages, giving you instant one-click access to all your article-related pages. No more hunting through menus to find where to write or manage your articles.
 
-But what if I had a button on the Goodreads page that redirected me to the Auckland Library search page with everything filled up and the search results already waiting for me? Wouldn't that save me a lot of time and effort? I think I'd also be able to save and hold books in the library much faster.
+This extension adds four always-visible buttons to the bottom of LinkedIn:
 
-Well, you don't have to imagine the possibility anymore. Because now, with this extension, we can do just that. This extension adds a 1-click 'Search in Auckland Library' button on the Goodreads book page to easily find your Goodreads book in the Auckland Library website.
+- Write a New Article – Jump straight into creating your next post.
+- Drafts – Quickly view and edit your in-progress articles.
+- Scheduled – Check what’s lined up to be published.
+- Published – See your live articles in one click.
 
-Happy reading!
+LinkedIn doesn’t make it easy to reach these pages, but with LinkedIn Article Tools, you’ll save time and keep your writing flow uninterrupted. Whether you’re a content creator, thought leader, or casual writer, these buttons make article management fast, simple, and effortless.
+
+Give it a try and let me know what you think!
 
 ## Credits
 

@@ -1,40 +1,40 @@
-.goodreads-akllibrary-ext-container {
-  padding: 4px;
-  padding-top: 0;
-  width: 100%;
-  margin-top: 0;
+:root {
+  --white: white;
+  --linkedInBlue: #0a66c2;
+  --linkedInBlueHoverDark: #004182;
+  --linkedInBlueHoverLight: rgba(55, 143, 233, 0.1);
+  --boxShadow: 0 -2px 0px rgb(50 50 50 / 4%);
+}
+
+.linkedin-article-tools-ext-container {
   position: fixed;
   bottom: 0;
-  z-index: auto;
-  background-color: white;
-  -webkit-box-shadow: 0 -2px 0px rgb(50 50 50 / 4%);
-  -moz-box-shadow: 0 -2px 0px rgb(50 50 50 / 4%);
-  box-shadow: 0 -5px 8px rgb(50 50 50 / 4%);
+  z-index: 98;
+  width: 100%;
+  padding: 0 4px 4px 4px;
+  margin-top: 0;
+  background-color: var(--white);
+  -webkit-box-shadow: 0 -2px 0px var(--boxShadow);
+  -moz-box-shadow: 0 -2px 0px var(--boxShadow);
+  box-shadow: 0 -5px 8px var(--boxShadow);
 }
-/* 
-.goodreads-akllibrary-ext-wrapper {
-  max-width: 82%;
-} */
 
-.goodreads-akllibrary-ext-container h2 {
-  font-weight: 600;
-  padding-left: 5px;
+.linkedin-article-tools-ext-container h2 {
   display: inline-block;
-  font-size: 14px;
+  padding-left: 5px;
   margin-right: 8px;
+  font-size: 14px;
+  font-weight: 600;
 }
 
 @media screen and (max-width: 900px) {
-  .goodreads-akllibrary-ext-container h2 {
+  .linkedin-article-tools-ext-container h2 {
     display: block;
     margin-top: 2px;
   }
 }
 
-.goodreads-akllibrary-ext-button {
-  background-color: #0a66c2;
-  border: 1px solid #0a66c2;
-  color: #fff;
+.linkedin-article-tools-ext-button {
   width: fit-content;
   padding: 4px 12px;
   border-radius: 34px;
@@ -43,22 +43,26 @@
   margin-top: 6px;
 }
 
-.goodreads-akllibrary-ext-button.secondary-ext-button {
-  border: 1px solid #0a66c2;
-  background-color: white;
-  color: #0a66c2;
-}
-
-.goodreads-akllibrary-ext-button:last-of-type {
+.linkedin-article-tools-ext-button:last-of-type {
   margin-right: 0;
 }
 
-.goodreads-akllibrary-ext-button:hover {
-  background-color: #004182;
+.linkedin-article-tools-ext-button-primary {
+  background-color: var(--linkedInBlue);
+  border: 1px solid var(--linkedInBlue);
+  color: var(--white);
 }
 
-.goodreads-akllibrary-ext-button.secondary-ext-button:hover {
-  border: 1px solid #0a66c2;
-  background-color: rgba(55, 143, 233, 0.1);
-  color: #0a66c2;
+.linkedin-article-tools-ext-button-primary:hover {
+  background-color: var(--linkedInBlueHoverDark);
+}
+
+.linkedin-article-tools-ext-button-secondary {
+  border: 1px solid var(--linkedInBlue);
+  background-color: var(--white);
+  color: var(--linkedInBlue);
+}
+
+.linkedin-article-tools-ext-button-secondary:hover {
+  background-color: var(--linkedInBlueHoverLight);
 }

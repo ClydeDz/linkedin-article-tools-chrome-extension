@@ -1,56 +1,36 @@
-import * as processModule from "./process";
 import * as documentModule from "./document";
 
 export function start() {
-  const appContainer = document.querySelector(".authentication-outlet"); // div.body //header#global-nav // main>section.artdeco-card
+  const linkedInContainer = documentModule.getLinkedInContainer();
+  const extContainer = documentModule.createExtensionContainer();
 
-  const extContainer = documentModule.createContainer();
   const newArticleButton = documentModule.createButton(
     "Write a new article",
-    "https://www.linkedin.com/article/new/"
+    "https://www.linkedin.com/article/new/",
+    true
   );
   const viewDraftsButton = documentModule.createButton(
     "Drafts",
-    "https://www.linkedin.com/article/manage/drafts/",
-    true
+    "https://www.linkedin.com/article/manage/drafts/"
   );
   const viewScheduledButton = documentModule.createButton(
     "Scheduled",
-    "https://www.linkedin.com/article/manage/scheduled/",
-    true
+    "https://www.linkedin.com/article/manage/scheduled/"
   );
   const viewPublishedButton = documentModule.createButton(
     "Published",
-    "https://www.linkedin.com/article/manage/published/",
-    true
+    "https://www.linkedin.com/article/manage/published/"
   );
 
-  extContainer.append(newArticleButton);
-  extContainer.append(viewDraftsButton);
-  extContainer.append(viewScheduledButton);
-  extContainer.append(viewPublishedButton);
+  documentModule.addButtonsToExtensionContainer(extContainer, [
+    newArticleButton,
+    viewDraftsButton,
+    viewScheduledButton,
+    viewPublishedButton,
+  ]);
 
-  appContainer.after(extContainer);
-
-  // const bookTitle = processModule.getGoodreadsTitle();
-  // const bookAuthors = processModule.getGoodreadsAuthors();
-
-  // if (!bookTitle && !bookAuthors) return;
-
-  // const bookSearchText = encodeURIComponent(`${bookTitle} by ${bookAuthors}`);
-  // const libraryUrl = `https://discover.aucklandlibraries.govt.nz/search?query=${bookSearchText}&searchType=everything&pageSize=10`;
-
-  // const goodreadsDesktopButtonSelector = ".BookPage__leftColumn .BookActions";
-  // const goodreadsMobileButtonSelector =
-  //   ".BookPageMetadataSection__mobileBookActions .BookActions";
-
-  // processModule.addRedirectButtonToDom(
-  //   goodreadsDesktopButtonSelector,
-  //   libraryUrl
-  // );
-
-  // processModule.addRedirectButtonToDom(
-  //   goodreadsMobileButtonSelector,
-  //   libraryUrl
-  // );
+  documentModule.addExtensionContainerToLinkedInContainer(
+    linkedInContainer,
+    extContainer
+  );
 }
