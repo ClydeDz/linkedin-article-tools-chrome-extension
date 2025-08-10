@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites name="jest tests" tests="9" failures="0" errors="0" time="2.268">
-  <testsuite name="document.test.js" errors="0" failures="0" skipped="0" timestamp="2025-08-10T06:42:13" time="1.795" tests="8">
-    <testcase classname="document.test.js getLinkedInContainer should query the expected selector" name="document.test.js getLinkedInContainer should query the expected selector" time="0.011">
+<testsuites name="jest tests" tests="11" failures="0" errors="0" time="3.122">
+  <testsuite name="start.test.js" errors="0" failures="0" skipped="0" timestamp="2025-08-10T06:57:47" time="1.418" tests="1">
+    <testcase classname="start.test.js should add buttons to the DOM" name="start.test.js should add buttons to the DOM" time="0.014">
+    </testcase>
+  </testsuite>
+  <testsuite name="document.test.js" errors="0" failures="0" skipped="0" timestamp="2025-08-10T06:57:47" time="1.682" tests="10">
+    <testcase classname="document.test.js getLinkedInContainer should query the expected selector" name="document.test.js getLinkedInContainer should query the expected selector" time="0.01">
     </testcase>
     <testcase classname="document.test.js createExtensionContainer should create extension container with heading element" name="document.test.js createExtensionContainer should create extension container with heading element" time="0.002">
     </testcase>
@@ -9,17 +13,17 @@
     </testcase>
     <testcase classname="document.test.js addButtonsToExtensionContainer should not add undefined button" name="document.test.js addButtonsToExtensionContainer should not add undefined button" time="0.001">
     </testcase>
-    <testcase classname="document.test.js addExtensionContainerToLinkedInContainer should add extension container after linkedin container" name="document.test.js addExtensionContainerToLinkedInContainer should add extension container after linkedin container" time="0">
+    <testcase classname="document.test.js addExtensionContainerToLinkedInContainer should add extension container after linkedin container" name="document.test.js addExtensionContainerToLinkedInContainer should add extension container after linkedin container" time="0.001">
     </testcase>
-    <testcase classname="document.test.js createButton should create button with class linkedin-article-tools-ext-button linkedin-article-tools-ext-button-primary when isPrimary is true" name="document.test.js createButton should create button with class linkedin-article-tools-ext-button linkedin-article-tools-ext-button-primary when isPrimary is true" time="0.001">
+    <testcase classname="document.test.js createButton should create button with class linkedin-article-tools-ext-button linkedin-article-tools-ext-button-primary when isPrimary is true" name="document.test.js createButton should create button with class linkedin-article-tools-ext-button linkedin-article-tools-ext-button-primary when isPrimary is true" time="0.003">
     </testcase>
     <testcase classname="document.test.js createButton should create button with class linkedin-article-tools-ext-button linkedin-article-tools-ext-button-secondary when isPrimary is false" name="document.test.js createButton should create button with class linkedin-article-tools-ext-button linkedin-article-tools-ext-button-secondary when isPrimary is false" time="0.001">
     </testcase>
-    <testcase classname="document.test.js createButton should return undefined button when no redirect link is supplied" name="document.test.js createButton should return undefined button when no redirect link is supplied" time="0">
+    <testcase classname="document.test.js createButton should create button with class linkedin-article-tools-ext-button linkedin-article-tools-ext-button-secondary when isPrimary is undefined" name="document.test.js createButton should create button with class linkedin-article-tools-ext-button linkedin-article-tools-ext-button-secondary when isPrimary is undefined" time="0">
     </testcase>
-  </testsuite>
-  <testsuite name="start.test.js" errors="0" failures="0" skipped="0" timestamp="2025-08-10T06:42:13" time="1.817" tests="1">
-    <testcase classname="start.test.js should add buttons to the DOM" name="start.test.js should add buttons to the DOM" time="0.013">
+    <testcase classname="document.test.js createButton should open redirect link in a new tab" name="document.test.js createButton should open redirect link in a new tab" time="0.001">
+    </testcase>
+    <testcase classname="document.test.js createButton should return undefined button when no redirect link is supplied" name="document.test.js createButton should return undefined button when no redirect link is supplied" time="0.001">
     </testcase>
   </testsuite>
 </testsuites>

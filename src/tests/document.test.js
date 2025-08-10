@@ -1,3 +1,7 @@
+/**
+ * @jest-environment jsdom
+ */
+
 import * as documentModule from "../scripts/document";
 import { document, querySelector, createElement } from "./mocks/documentMock";
 
@@ -130,6 +134,11 @@ describe("document.test.js", () => {
         expectedCssClassname:
           "linkedin-article-tools-ext-button linkedin-article-tools-ext-button-secondary",
       },
+      {
+        isPrimary: undefined,
+        expectedCssClassname:
+          "linkedin-article-tools-ext-button linkedin-article-tools-ext-button-secondary",
+      },
     ])(
       `should create button with class $expectedCssClassname when isPrimary is $isPrimary`,
       ({ isPrimary, expectedCssClassname }) => {
@@ -156,6 +165,26 @@ describe("document.test.js", () => {
         );
       }
     );
+
+    test("should open redirect link in a new tab", () => {
+      createElement.mockReturnValueOnce({
+        innerText: "",
+        className: "",
+        onclick: undefined,
+        dispatchEvent: function (event) {
+          if (event.type === "click" && typeof this.onclick === "function") {
+            this.onclick(event);
+          }
+        },
+      });
+      jest.spyOn(window, "open").mockImplementation(() => {});
+      const redirectLink = "https://example.com";
+
+      const result = documentModule.createButton("test", redirectLink, true);
+      result.dispatchEvent({ type: "click" });
+
+      expect(window.open).toHaveBeenCalledWith(redirectLink, "_blank");
+    });
 
     test("should return undefined button when no redirect link is supplied", () => {
       createElement.mockReturnValueOnce({
